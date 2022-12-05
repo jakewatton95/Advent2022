@@ -1,9 +1,13 @@
+import { chunk } from "lodash";
 import fileHandling from "../util/fileHandling";
 import stringUtil from "../util/stringUtil";
 
-/* Note we can do this quick and easy in n^2 (per rucksack)  using last index of
+/* Note we can do pt 1 quick and easy in n^2 (per rucksack)  using last index of
    if we wanted to do it O(n) we could make a map of the chars in each and 
    check that the chars existed in both.
+
+   For part 2, I ended up implementing pretty similar to the O(n) solution 
+   mentioned above
 */
 
 /**
@@ -41,11 +45,57 @@ function getCombinedPriorityValues(rucksackData: string[]) {
   );
 }
 
+/**
+ *
+ * @param rucksack
+ * @returns Record of char keys to boolean values i.e.
+ * {
+ *  q: true,
+ *  b: true,
+ *  W: true,
+ *  T: true,
+ * ...
+ * }
+ */
+function createItemMap(rucksack: string) {
+  const map: Record<string, boolean> = {};
+  [...rucksack].forEach((item) => {
+    map[item] = true;
+  });
+  return map;
+}
+
+/**
+ *
+ * @param badgeGroup group of 3 rucksacks that share 1 item in common
+ * @returns the common item (a single character)
+ */
+function getBadgeItem(badgeGroup: string[]) {
+  const itemMaps = badgeGroup.map(createItemMap);
+  // find the first char that is in every map
+  return badgeGroup[0]
+    .split("")
+    .find((char) => itemMaps.every((map) => map[char]))! as string;
+}
+
+function getBadgePriorityValues(rucksackData: string[]) {
+  const badgeGroups = chunk(rucksackData, 3);
+  const badgeItems = badgeGroups.map(getBadgeItem);
+  return badgeItems.reduce(
+    (runningTotal: number, badgeItem: string) =>
+      runningTotal + getPriority(badgeItem),
+    0
+  );
+}
+
 async function day3() {
   const rucksackData = await fileHandling.pullDataFromFile(
     "day3/day3Input.txt"
   );
-  return getCombinedPriorityValues(rucksackData);
+  return {
+    combinedPriorityValues: getCombinedPriorityValues(rucksackData),
+    badgePriorityValues: getBadgePriorityValues(rucksackData),
+  };
 }
 
 export default day3;

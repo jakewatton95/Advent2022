@@ -11,8 +11,9 @@ async function main() {
   console.log("Day 2 RPS score", totalScore);
   console.log("Day 2 Updated RPS score", totalScoreUpdated);
 
-  const priorityValue = await day3();
-  console.log("Day 3 total rucksack priority value:", priorityValue);
+  const { badgePriorityValues, combinedPriorityValues } = await day3();
+  console.log("Day 3 total rucksack priority value:", combinedPriorityValues);
+  console.log("Day 3 total rucksack badge value:", badgePriorityValues);
 }
 
 main().catch((e) => console.error(e));
