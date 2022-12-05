@@ -2,13 +2,17 @@
   "name": "advent",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "test": "ts-node tests/fiddle.ts",
+    "start": "ts-node index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module"
+  "devDependencies": {
+    "@types/node": "^18.11.10",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
+  }
 }

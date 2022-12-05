@@ -1,14 +1,6 @@
-import { readFile } from "fs/promises";
+import fileHandling from "../util/fileHandling";
 
-async function pullData() {
-  const data = await readFile(
-    "/Users/jacobwatton/Coding_Exercises/advent/src/day1/day1input.txt",
-    { encoding: "utf8" }
-  );
-  return data.split("\n");
-}
-
-function getMax(calorieArray) {
+function getMax(calorieArray: string[]) {
   let max = 0;
   let running_max = 0;
   for (let i = 0; i < calorieArray.length; i++) {
@@ -22,7 +14,7 @@ function getMax(calorieArray) {
   return max;
 }
 
-function getTop3(calorieArray) {
+function getTop3(calorieArray: string[]) {
   let top3 = [0, 0, 0];
   let running_max = 0;
   for (let i = 0; i < calorieArray.length; i++) {
@@ -38,7 +30,7 @@ function getTop3(calorieArray) {
 }
 
 async function day1() {
-  const calorieData = await pullData();
+  const calorieData = await fileHandling.pullDataFromFile("day1/day1input.txt");
   const individualMax = getMax(calorieData);
   const top3Total = getTop3(calorieData);
   return { individualMax, top3Total };
