@@ -3,6 +3,7 @@ import day2 from "./src/day2/day2";
 import day3 from "./src/day3/day3";
 import day4 from "./src/day4/day4";
 import day5 from "./src/day5/day5";
+import day6 from "./src/day6/day6";
 
 async function main() {
   const { individualMax, top3Total } = await day1();
@@ -27,6 +28,10 @@ async function main() {
     "Day 5 Items on top of stacks when moved in groups",
     topItemsGrouped
   );
+
+  const { messageIndex, startIndex } = await day6();
+  console.log("Day 6 start index", startIndex);
+  console.log("Day 6 Message Index", messageIndex);
 }
 
 main().catch((e) => console.error(e));
