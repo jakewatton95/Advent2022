@@ -2,6 +2,7 @@ import day1 from "./src/day1/day1";
 import day2 from "./src/day2/day2";
 import day3 from "./src/day3/day3";
 import day4 from "./src/day4/day4";
+import day5 from "./src/day5/day5";
 
 async function main() {
   const { individualMax, top3Total } = await day1();
@@ -19,6 +20,13 @@ async function main() {
   const { anyOverlaps, fullOverlaps } = await day4();
   console.log("Day 4 full overlap count", fullOverlaps);
   console.log("Day 4 partial overlap count", anyOverlaps);
+
+  const { topItems, topItemsGrouped } = await day5();
+  console.log("Day 5 Items on top of stacks", topItems);
+  console.log(
+    "Day 5 Items on top of stacks when moved in groups",
+    topItemsGrouped
+  );
 }
 
 main().catch((e) => console.error(e));
