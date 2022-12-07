@@ -13,6 +13,31 @@ function findFirstSetOfUnique(packet: string, numDistinctCharacters: number) {
   }
 }
 
+/**
+ * Do it in O(n)
+ */
+function findFirstSetOfUniqueOn(packet: string, numDistinctCharacters: number) {
+  const charMap: Record<string, boolean> = {};
+  let startIndex = 0;
+  let endIndex = 0;
+  for (let i = 0; i < packet.length; i++) {
+    endIndex++;
+    if (!charMap[packet[i]]) {
+      charMap[packet[i]] = true;
+    } else {
+      for (let j = startIndex; j < endIndex; j++) {
+        startIndex++;
+        if (packet[j] === packet[i]) {
+          break;
+        } else {
+          charMap[packet[j]] = false;
+        }
+      }
+    }
+    if (endIndex - startIndex === numDistinctCharacters) return endIndex;
+  }
+}
+
 async function day6() {
   const [packetData] = await fileHandling.pullDataFromFile("day6/input.txt");
   const startIndex = findFirstSetOfUnique(packetData, 4);
