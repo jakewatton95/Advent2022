@@ -4,6 +4,7 @@ import day3 from "./src/day3/day3";
 import day4 from "./src/day4/day4";
 import day5 from "./src/day5/day5";
 import day6 from "./src/day6/day6";
+import day7 from "./src/day7/day7";
 
 async function main() {
   const { individualMax, top3Total } = await day1();
@@ -32,6 +33,10 @@ async function main() {
   const { messageIndex, startIndex } = await day6();
   console.log("Day 6 start index", startIndex);
   console.log("Day 6 Message Index", messageIndex);
+
+  const { smallestDeleteSize, totalSmallFileSize } = await day7();
+  console.log("Day 7 file total", totalSmallFileSize);
+  console.log("Day 7 smallest delete size", smallestDeleteSize);
 }
 
 main().catch((e) => console.error(e));
