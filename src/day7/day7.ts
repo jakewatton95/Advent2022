@@ -1,9 +1,9 @@
-import { sum } from "lodash";
+import { sumBy } from "lodash";
 import fileHandling from "../util/fileHandling";
 
 type FolderNode = {
   folderName: string;
-  sum: number;
+  totalSize: number;
 };
 
 function parseData(cmds: string[]) {
@@ -13,23 +13,26 @@ function parseData(cmds: string[]) {
     const cmdArr = cmds[i].split(" ");
     if (cmdArr[0] === "$" && cmdArr[1] === "cd") {
       if (cmdArr[2] == "..") {
-        const finishedFolder = stack.pop();
-        stack[stack.length - 1].sum += finishedFolder?.sum!;
-        folderSizes.push(finishedFolder!);
+        const finishedFolder = stack.pop()!;
+        stack[stack.length - 1].totalSize += finishedFolder.totalSize;
+        folderSizes.push(finishedFolder);
       } else {
-        stack.push({ folderName: cmdArr[2], sum: 0 });
+        stack.push({ folderName: cmdArr[2], totalSize: 0 });
       }
     } else {
       const fileSize = parseInt(cmdArr[0]);
       if (fileSize) {
-        stack[stack.length - 1].sum += fileSize;
+        stack[stack.length - 1].totalSize += fileSize;
       }
     }
   }
+
+  // stack may not be empty so make sure to get all the way through it adding to final folder sizes
   while (stack.length > 0) {
     const finishedFolder = stack.pop();
     folderSizes.push(finishedFolder!);
-    if (stack.length) stack[stack.length - 1].sum += finishedFolder?.sum!;
+    if (stack.length)
+      stack[stack.length - 1].totalSize += finishedFolder?.totalSize!;
   }
   return folderSizes;
 }
@@ -37,18 +40,19 @@ function parseData(cmds: string[]) {
 async function day7() {
   const cmds = await fileHandling.pullDataFromFile("day7/input.txt");
   const folderSizes = parseData(cmds);
-  const totalSmallFileSize = sum(
-    folderSizes.filter((folder) => folder.sum < 100000).map((f) => f.sum)
+  const totalSmallFileSize = sumBy(
+    folderSizes.filter((folder) => folder.totalSize < 100000),
+    "totalSize"
   );
 
   // size of root is total size
-  const totalSize = folderSizes[folderSizes.length - 1].sum;
+  const totalSize = folderSizes[folderSizes.length - 1].totalSize;
   const freeSpace = 70000000 - totalSize;
   const spaceNeededToDelete = 30000000 - freeSpace;
 
   const deleteSizes = folderSizes
-    .filter((f) => f.sum > spaceNeededToDelete)
-    .map(({ sum }) => sum)
+    .filter((f) => f.totalSize > spaceNeededToDelete)
+    .map(({ totalSize }) => totalSize)
     .sort((a, b) => a - b);
 
   return { totalSmallFileSize, smallestDeleteSize: deleteSizes[0] };
