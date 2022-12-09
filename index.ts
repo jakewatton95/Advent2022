@@ -5,6 +5,7 @@ import day4 from "./src/day4/day4";
 import day5 from "./src/day5/day5";
 import day6 from "./src/day6/day6";
 import day7 from "./src/day7/day7";
+import day8 from "./src/day8/day8";
 
 async function main() {
   const { individualMax, top3Total } = await day1();
@@ -37,6 +38,10 @@ async function main() {
   const { smallestDeleteSize, totalSmallFileSize } = await day7();
   console.log("Day 7 file total", totalSmallFileSize);
   console.log("Day 7 smallest delete size", smallestDeleteSize);
+
+  const { numVisibleTrees, maxVis } = await day8();
+  console.log("Day 8 visible trees", numVisibleTrees);
+  console.log("Day 8 max visibility", maxVis);
 }
 
 main().catch((e) => console.error(e));
