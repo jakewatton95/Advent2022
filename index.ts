@@ -1,4 +1,5 @@
 import day1 from "./src/day1/day1";
+import day10 from "./src/day10/day10";
 import day2 from "./src/day2/day2";
 import day3 from "./src/day3/day3";
 import day4 from "./src/day4/day4";
@@ -46,6 +47,9 @@ async function main() {
 
   const numTouchedCoords = await day9();
   console.log("Day 9 touched coords", numTouchedCoords);
+
+  const signalStrength = await day10();
+  console.log("Day 10 Signal Strength", signalStrength);
 }
 
 main().catch((e) => console.error(e));
