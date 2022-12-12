@@ -1,6 +1,7 @@
 import day1 from "./src/day1/day1";
 import day10 from "./src/day10/day10";
 import day11 from "./src/day11/day11";
+import day12 from "./src/day12/day12";
 import day2 from "./src/day2/day2";
 import day3 from "./src/day3/day3";
 import day4 from "./src/day4/day4";
@@ -52,9 +53,13 @@ async function main() {
   // const signalStrength = await day10();
   // console.log("Day 10 Signal Strength", signalStrength);
 
-  const { touchedItemProduct, touchedItemProduct2 } = await day11();
-  console.log("Day 11 part one touched item value", touchedItemProduct);
-  console.log("Day 11 part two touched item value", touchedItemProduct2);
+  // const { touchedItemProduct, touchedItemProduct2 } = await day11();
+  // console.log("Day 11 part one touched item value", touchedItemProduct);
+  // console.log("Day 11 part two touched item value", touchedItemProduct2);
+
+  const { stepsToA, stepsToS } = await day12();
+  console.log("Day 12 part 1 steps to S", stepsToS);
+  console.log("Day 12 part 2 steps to a", stepsToA);
 }
 
 main().catch((e) => console.error(e));
